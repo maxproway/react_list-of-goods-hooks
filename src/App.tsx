@@ -22,12 +22,7 @@ enum SortBy {
   Length,
 }
 
-enum Reverse {
-  No,
-  Yes,
-}
-
-const sortGoods = (sortField: SortBy, reverseField: Reverse) => {
+const sortGoods = (sortField: SortBy, reverseField: boolean) => {
   const sortedGoods = [...goodsFromServer];
 
   switch (sortField) {
@@ -51,12 +46,12 @@ const sortGoods = (sortField: SortBy, reverseField: Reverse) => {
 
 export const App: React.FC = () => {
   const [sortField, setSortField] = React.useState(SortBy.None);
-  const [reverseField, setReverseField] = React.useState(Reverse.No);
+  const [reverseField, setReverseField] = React.useState(false);
   const goods: string[] = sortGoods(sortField, reverseField);
 
   const reset = () => {
     setSortField(SortBy.None);
-    setReverseField(Reverse.No);
+    setReverseField(false);
   };
 
   return (
@@ -85,11 +80,9 @@ export const App: React.FC = () => {
         <button
           type="button"
           className={cn('button is-warning', {
-            'is-light': reverseField !== Reverse.Yes,
+            'is-light': reverseField !== true,
           })}
-          onClick={() =>
-            setReverseField(reverseField ? Reverse.No : Reverse.Yes)
-          }
+          onClick={() => setReverseField(!reverseField && true)}
         >
           Reverse
         </button>
