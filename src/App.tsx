@@ -49,7 +49,7 @@ export const App: React.FC = () => {
   const [reverseField, setReverseField] = React.useState(false);
   const goods: string[] = sortGoods(sortField, reverseField);
 
-  const reset = () => {
+  const resetSorting = () => {
     setSortField(SortBy.None);
     setReverseField(false);
   };
@@ -82,16 +82,16 @@ export const App: React.FC = () => {
           className={cn('button is-warning', {
             'is-light': reverseField !== true,
           })}
-          onClick={() => setReverseField(!reverseField && true)}
+          onClick={() => setReverseField(!reverseField)}
         >
           Reverse
         </button>
 
-        {goods.toString() !== goodsFromServer.toString() && (
+        {(sortField !== SortBy.None || reverseField === true) && (
           <button
             type="button"
             className="button is-danger is-light"
-            onClick={reset}
+            onClick={resetSorting}
           >
             Reset
           </button>
